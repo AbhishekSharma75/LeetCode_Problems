@@ -17,7 +17,7 @@ class Solution {
         
         int s = 0; 
         for(int i = 0; i < v.size(); i++){
-            s += v[i]*v[i]*v[i];
+            s += pow(v[i], 3);
         }
 
         if(s == x){
