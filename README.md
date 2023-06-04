@@ -1,2 +1,2 @@
 # LeetCode_Problems
-LeetCode problems and their corresponding solutions
+LeetCode/GFG problems and their corresponding solutions
