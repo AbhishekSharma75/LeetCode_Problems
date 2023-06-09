@@ -20,9 +20,9 @@ public:
         for(int i = 0; i < n; i++) {
             if(nums[i] == ele) count1++;
         }
-        if(ele > n/2) {
+        if(count1 > n/2) {
             return ele;
         }
-        return ele;
+        return -1;
     }
 };
