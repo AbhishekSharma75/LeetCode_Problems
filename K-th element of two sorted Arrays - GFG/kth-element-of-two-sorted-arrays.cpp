@@ -6,32 +6,27 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    
     int kthElement(int arr1[], int arr2[], int n, int m, int k)
     {
-        priority_queue<array<int,3>, vector<array<int,3>>, greater<array<int,3>>> pq;  // Min - Heap (Smallest at top)
-        int ans = 0;
-        // {el, id, which_array}
-        pq.push({arr1[0], 0, 0});
-        pq.push({arr2[0], 0, 1});
-    
-        while (k--)
+        if (n < m)
         {
-            auto up = pq.top();
-            ans = up[0];
-            pq.pop();
-            
-            int id = up[1];
-            if (up[2] == 0)
-            {
-                if (id + 1 < n) pq.push({arr1[id+1], id+1, 0});
-            }
-            else
-            {
-                if (id + 1 < m) pq.push({arr2[id+1], id+1, 1});
-            }
+            return kthElement(arr2, arr1, m, n, k);
         }
-        return ans;
+        
+        int lo = max(0, k-m), hi = min(n, k);
+        // we are doing bs on how many elements of a1[] will be there in first k el of final sorted merged a[]
+        while (lo <= hi)
+        {
+            int mid = (lo+hi)/2;
+            
+            int maxn = max((mid > 0 ? arr1[mid-1] : -1e9), (k - mid > 0 ? arr2[k-mid-1] : -1e9));
+            int minn = min((mid < n ? arr1[mid] : 1e9), (k - mid < m ? arr2[k-mid] : 1e9));
+            
+            if (maxn <= minn) return maxn;
+            if ((mid > 0 ? arr1[mid-1] : -1e9) > (k - mid < m ? arr2[k-mid] : 1e9)) hi = mid - 1;
+            else lo = mid + 1;
+        }
+        return -1;
     }
 };
 
