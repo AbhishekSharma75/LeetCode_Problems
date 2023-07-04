@@ -6,31 +6,32 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
+    
     int kthElement(int arr1[], int arr2[], int n, int m, int k)
     {
-        int i = 0, j = 0;
-        while(i < n && j < m) {
-            int found = 0;
-            if(arr1[i] <= arr2[j]) {
-                i++;
-                found = 1;
+        priority_queue<array<int,3>, vector<array<int,3>>, greater<array<int,3>>> pq;  // Min - Heap (Smallest at top)
+        int ans = 0;
+        // {el, id, which_array}
+        pq.push({arr1[0], 0, 0});
+        pq.push({arr2[0], 0, 1});
+    
+        while (k--)
+        {
+            auto up = pq.top();
+            ans = up[0];
+            pq.pop();
+            
+            int id = up[1];
+            if (up[2] == 0)
+            {
+                if (id + 1 < n) pq.push({arr1[id+1], id+1, 0});
             }
-            else j++;
-            k--;
-            if(k == 0) {
-                if(found == 1) return arr1[i-1];
-                return arr2[j-1];
+            else
+            {
+                if (id + 1 < m) pq.push({arr2[id+1], id+1, 1});
             }
         }
-        while(i < n) {
-            i++; k--;
-            if(k == 0) return arr1[i-1];
-        }
-        while(j < m) {
-            j++; k--;
-            if(k == 0) return arr2[j-1];
-        }
-        return -1;
+        return ans;
     }
 };
 
