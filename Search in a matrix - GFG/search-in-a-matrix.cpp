@@ -8,19 +8,17 @@ class Solution{
 public:	
 	int matSearch (vector <vector <int>> &mat, int n, int m, int x)
 	{
-	    int i = 0, j = m-1;
-	    while(i < n && j >= 0) {
-	        if(mat[i][j] == x) {
-	            return 1;
+	    int row = 0, col = m - 1;
+	    while(row < n && col >= 0) {
+	        if(mat[row][col] == x) {
+	            return true;
 	        }
-	        if(mat[i][j] > x){
-	            j--;
+	        if(mat[row][col] > x) {
+	            col--;
 	        }
-	        else {
-	            i++;
-	        }
+	        else row++;
 	    }
-	    return 0;
+	    return false;
 	}
 };
 
